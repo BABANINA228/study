@@ -1,29 +1,54 @@
-# 4  from tkinter import *
-from tkinter import *
+import pygame
 
-root = Tk()
-l = Label(font = 35)
-def phone(a, n):
-    l.config(text = a)
-    if n == 1:
-        r1.config(bg = "black")
-        print("Сработало 1")
-    elif n ==2:
-        r2["bg"] = "black"
-        print("Сработало 2")
-    elif n ==3:
-        r3["bg"] = "black"
-        print("Сработало 3")
-    # l.delete(0, END)
-    # l.insert(0,f'{a}')
-root.geometry('400x300+200+100')
-r1 = Radiobutton(root, height=2, width=5, text = "Вася", indicatoron=0, command = lambda: phone('8-800-55-35-35', 1), activebackground="gray")
-r2 = Radiobutton(root, height=2, width=5, text = 'Петя', indicatoron=0, command = lambda: phone('+7978-064-06-24', 2), activebackground="gray")
-r3 = Radiobutton(root, height=2, width=5, text = 'Миша', indicatoron=0, command = lambda: phone('Нет номера', 3), activebackground="gray")
+import pygame_widgets
+from pygame_widgets.button import Button
 
-l.pack()
-r1.pack(anchor=W)
-r2.pack(anchor=W)
-r3.pack(anchor=W)
+# Set up Pygame
+pygame.init()
+screen = pygame.display.set_mode((320, 320))
+turn = 1
+table = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
-root.mainloop()
+
+class Table:
+    __r = 0
+    __c = 0
+
+    def __init__(self):
+        x = int(Table.__c * 110)
+        y = int(Table.__r * 110)
+        self.btn = Button(screen, x, y, 100, 100, onClick=lambda: set_figure(int(y / 110), int(x / 110)))
+        if Table.__c <= 2:
+            Table.__c += 1
+        else:
+            Table.__c = 0
+            Table.__r += 1
+
+
+def set_figure(r, c):
+    global turn
+    if turn == 1:
+        table[r][c] = 1
+        turn = 2
+    elif turn == 2:
+        table[r][c] = 2
+        turn = 1
+    pygame.draw.circle(screen, (111, 20, 222), (200, 100), 50, 10)
+    print(table)
+
+
+objs = [Table() for i in range(11)]
+
+run = True
+while run:
+    events = pygame.event.get()
+    for event in events:
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            run = False
+            quit()
+
+    screen.fill((92, 92, 94))
+
+    pygame_widgets.update(events)
+    pygame.display.update()
