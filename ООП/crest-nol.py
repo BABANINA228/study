@@ -1,5 +1,5 @@
 import pygame
-
+import sys
 import pygame_widgets
 from pygame_widgets.button import Button
 
@@ -8,17 +8,21 @@ pygame.init()
 screen = pygame.display.set_mode((320, 320))
 
 table = [['o', 'o', 'o'], ['o', 'o', 'o'], ['o', 'o', 'o']]
+BLACK = (0, 0, 0)
+GRAY = (125, 125, 125)
 
 
 class Table:
     __r = 0
     __c = 0
     turn = 'a'
+    btn_srf = pygame.Surface((100, 100))
     def __init__(self):
         self.alraedy_clicked = False
         x = int(Table.__c * 110)
         y = int(Table.__r * 110)
-        self.btn = Button(screen, x, y, 100, 100, onClick=lambda: self.set_figure(int(y / 110), int(x / 110)))
+        self.btn = Button(Table.btn_srf, x, y, 100, 100, onClick=lambda: self.set_figure(int(y / 110), int(x / 110)))
+        screen.blit(Table.btn_srf, (x, y))
         if Table.__c <= 2:
             Table.__c += 1
         else:
@@ -33,11 +37,21 @@ class Table:
             if Table.turn == 'a':
                 table[r][c] = 'a'
                 Table.turn = 'b'
+                pygame.draw.line(screen, (223, 25, 86),
+                                 [c * 110 + 5, r * 110 + 5],
+                                 [c * 110 + 95, r * 110 + 95], 10)
+                pygame.draw.line(screen, (223, 25, 86),
+                                 [c * 110 + 95, r * 110 + 5],
+                                 [c * 110 + 5, r * 110 + 95], 10)
             elif Table.turn == 'b':
                 table[r][c] = 'b'
                 Table.turn = 'a'
+                pygame.draw.circle(screen, (46, 99, 221),
+                                   (c * 110 + 50, r * 110 + 50), 45, 8)
             self.alraedy_clicked = True
+            pygame.display.update()
             print(table)
+
     @staticmethod
     def is_win():
         global run
@@ -63,8 +77,10 @@ class Table:
 
 
 
-objs = [Table() for i in range(11)]
 
+
+screen.fill((92, 92, 94))
+objs = [Table() for i in range(11)]
 
 
 run = True
@@ -76,8 +92,7 @@ while run:
             run = False
             quit()
 
-    screen.fill((92, 92, 94))
+
     Table.is_win()
     pygame_widgets.update(events)
     pygame.display.update()
-
