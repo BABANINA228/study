@@ -31,7 +31,6 @@ class Table:
 
     def set_figure(self, r, c):
         if self.alraedy_clicked:
-            print('Already')
             pass
         else:
             if Table.turn == 'a':
@@ -50,7 +49,6 @@ class Table:
                                    (c * 110 + 50, r * 110 + 50), 45, 8)
             self.alraedy_clicked = True
             pygame.display.update()
-            print(table)
 
     @staticmethod
     def is_win():
