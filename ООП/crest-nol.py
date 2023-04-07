@@ -73,9 +73,6 @@ class Table:
             run = False
 
 
-
-
-
 screen.fill((92, 92, 94))
 objs = [Table() for i in range(11)]
 
@@ -88,7 +85,6 @@ while run:
             pygame.quit()
             run = False
             quit()
-
 
     Table.is_win()
     pygame_widgets.update(events)
