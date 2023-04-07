@@ -1,5 +1,4 @@
 import pygame
-import sys
 import pygame_widgets
 from pygame_widgets.button import Button
 
