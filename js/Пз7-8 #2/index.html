@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+            <p>Введите значение a левого конца отрезка табулирования <input id="a" value="7" type="text"></p>
+            <p>Введите значение b правого конца отрезка табулирования <input id="b" value="9" type="text"></p>
+            <p>Введите значение h шага табулирования <input type="text" value="0.2" id="h"></p>
+            
+            <div>
+                <div>
+                    <form>
+                        <select id="box1" onChange="show(this)">
+                        <option> y = x^2 </option>
+                        <option> y = x </option>
+                        <option> y = sqrt(x + x)</option>
+                        <option value = "htttp://golovolomka.hobby.ru/"> Головоломки
+                        для умных людей </option>
+                        <option value = "http://www.etudes.ru/"> Математические этюды
+                        </option>
+                        <option value = "http://math.fizteh.ru/study/literature.esp">
+                        Математический анализ. Электронные учебники </option>
+                        </select>
+                        
+                    </form>
+                </div>
+                <button onclick="cl()" >Очистить</button>
+            </div>
+            <select name="tab_list" id="tab" size="10"></select>
+            
+
+       
+    </body>
+    <script src="script.js"></script>
+</html>
+
+
